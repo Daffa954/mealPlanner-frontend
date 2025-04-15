@@ -1,3 +1,12 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@layer utilities {
+    .paused-on-hover {
+      animation-play-state: running;
+    }
+  
+    .group:hover .paused-on-hover {
+      animation-play-state: paused;
+    }
+  }
