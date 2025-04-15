@@ -1,7 +1,31 @@
 import Navbar from "../components/navbar";
 import imgAset from "../assets/aset2Compress.jpg";
 import { useEffect } from "react";
+import { TeamCard } from "../components/team_card";
+import placeholder from "../assets/placeholder.jpg";
 export function Home() {
+  const teams = [
+    {
+      name: "Daffa Khoirul Faiz",
+      role: "Chief Technology Officer",
+      image: placeholder,
+    },
+    {
+      name: "Jevoncius Fernando W",
+      role: "Chief Technology Officer",
+      image: placeholder,
+    },
+    {
+      name: "Matthew Fernando A",
+      role: "Chief Technology Officer",
+      image: placeholder,
+    },
+    {
+      name: "Shafira Rizki Amelia",
+      role: "Chief Technology Officer",
+      image: placeholder,
+    },
+  ];
   useEffect(() => {
     document.title = "Home";
   }, []);
@@ -39,7 +63,7 @@ export function Home() {
             <h1 className="text-4xl md:text-5xl font-extrabold text-[#4BA095] mb-6">
               About Our Product
             </h1>
-            <p className="text-lg leading-relaxed">
+            <p className="text-xl leading-relaxed">
               Kami percaya setiap anak berhak mendapatkan makanan sehat dan
               aman, apapun kondisi dan keterbatasan bahan di rumah. Dengan
               teknologi AI, kami bantu orang tua menyusun menu harian yang
@@ -47,7 +71,7 @@ export function Home() {
               bingung.
             </p>
 
-            <p className="text-lg mt-6 font-semibold">Fitur utama:</p>
+            <p className="text-xl mt-6 font-semibold">Fitur utama:</p>
             <ul className="mt-4 space-y-3 list-none">
               <li className="flex items-start gap-2">
                 <span>🎯</span>
@@ -70,7 +94,7 @@ export function Home() {
                   ketersediaan bahan pengguna.
                 </span>
               </li>
-              
+
               <li className="flex items-start gap-2">
                 <span>⚡</span>
                 <span>
@@ -131,7 +155,29 @@ export function Home() {
           </div>
         </section>
         {/* our teams */}
+        <section className="w-full py-16  text-gray-700">
+          <h1 className="text-4xl md:text-5xl font-extrabold text-[#4BA095] mb-6">
+            Meet Our Team
+          </h1>
+          {/* card container */}
+          <div className="w-full  flex-wrap flex gap-6">
+            {teams.map((team, index) => (
+              <TeamCard key={index} title={team.name} description={team.role}>
+                <img
+                  className="rounded-t-lg h-[270px] w-full object-cover"
+                  src={
+                    team.image ||
+                    "https://via.placeholder.com/300x270?text=No+Image"
+                  }
+                  alt={team.name}
+                />
+              </TeamCard>
+            ))}
+          </div>
+          {/* card container */}
+        </section>
         {/* testimonial */}
+        
       </main>
     </>
   );
