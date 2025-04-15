@@ -1,5 +1,6 @@
 import Navbar from "../components/navbar";
 import imgAset from "../assets/aset2Compress.jpg";
+import imgAsets from "../assets/bg-dapur.png"
 import { useEffect } from "react";
 import { TeamCard } from "../components/team_card";
 import placeholder from "../assets/placeholder.jpg";
@@ -86,9 +87,8 @@ export function Home() {
   }, []);
   return (
     <>
-      <header className="w-full ">
+      {/* <header className="w-full ">
         <Navbar />
-        {/* hero */}
         <div className="w-full h-[100vh] flex items-center justify-center  bg-[#F9F6F1] p-4">
           <div className="max-w-4xl text-center">
             <h1 className="text-7xl text-[#4BA095] font-bold leading-tight">
@@ -112,8 +112,49 @@ export function Home() {
             </div>
           </div>
         </div>
-        {/* hero */}
+      </header> */}
+
+<header className="w-full relative">
+        {/* Navbar with glassmorphism effect */}
+        <div className="fixed w-full z-50 backdrop-blur-md bg-white/30 shadow-sm">
+          <Navbar />
+        </div>
+        
+        {/* Hero section */}
+        <div 
+          className="w-full h-screen flex items-center justify-center p-4 relative" 
+          style={{
+            backgroundImage: `url(${imgAsets})`, 
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+          }}
+        >
+          {/* Overlay */}
+          <div className="absolute inset-0 bg-black/20"></div>
+          
+          {/* Content with glassmorphism */}
+          <div className="max-w-4xl text-center backdrop-blur-lg bg-white/20 p-12 rounded-2xl border border-white/20 shadow-xl z-10 mx-4">
+            <h1 className="text-6xl md:text-7xl text-[#FCD47F] font-bold leading-tight mb-4">
+              Meal Planner
+            </h1>
+            <h2 className="text-3xl md:text-4xl text-white font-bold leading-tight mb-6 drop-shadow-md">
+              Rencana Makan Sehat untuk Anak, Sesuai Selera, Kebutuhan, dan Kesehatan Anak!
+            </h2>
+            <p className="mt-4 text-white text-xl md:text-2xl font-medium drop-shadow-md">
+              Dibantu AI Deepseek untuk mendapatkan resep yang sesuai untuk Anak Anda
+            </p>
+            <div className="mt-8 flex flex-col sm:flex-row justify-center gap-4">
+              <button className="bg-[#7B5E3C] text-white px-8 py-3 rounded-lg hover:bg-[#9C7248] transition-all shadow-lg hover:shadow-xl">
+                Coba gratis
+              </button>
+              <button className="bg-white/10 backdrop-blur-sm border border-white/20 text-white px-6 py-3 rounded-lg hover:bg-white/20 transition-all shadow-sm">
+                Detail harga
+              </button>
+            </div>
+          </div>
+        </div>
       </header>
+
       <main className="md:px-28 px-10 py-10 space-y-8">
         {/* about */}
         <section className="w-full py-16  text-gray-700">
