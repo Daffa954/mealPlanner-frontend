@@ -10,7 +10,7 @@ export function ReviewCard({
   value: number;
 }) {
   return (
-    <div className="w-[300px] h-[170px]  p-6 bg-white  rounded-lg shadow-sm border-[1.5px] border-gray-300">
+    <div className="w-[300px] h-[170px]  p-6 bg-white hover:bg-gray-200 transition rounded-lg shadow-sm border-[1.5px] border-gray-300">
       <div className="w-full flex justify-between">
         <p className="font-bold text-lg line-clamp-1 ">{name}</p>
         <div className="flex items-center gap-2">
@@ -29,9 +29,7 @@ export function ReviewCard({
           </div>
         </div>
       </div>
-      <p className="line-clamp-4">
-        {review}
-      </p>
+      <p className="line-clamp-4">{review}</p>
     </div>
   );
 }

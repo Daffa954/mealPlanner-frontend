@@ -6,6 +6,8 @@ import placeholder from "../assets/placeholder.jpg";
 import { Card } from "../components/card_why";
 import { reviews } from "../seed/reviews";
 import { ReviewCard } from "../components/reviewCard";
+import { Link } from "react-router-dom";
+
 export function Home() {
   const teams = [
     {
@@ -104,7 +106,9 @@ export function Home() {
             </p>
             <div className="mt-8 flex justify-center gap-4">
               <button className="bg-[#F5B947] text-white px-6 py-3 rounded-md hover:bg-yellow-500">
-                Coba gratis
+              <Link to="/ask" className="text-blue-500 hover:underline">
+  Coba Gratis
+</Link>
               </button>
               <button className="border border-[#4BA095] text-[#4BA095] px-6 py-3 rounded-md hover:bg-[#4BA095] hover:text-white transition">
                 Detail harga
