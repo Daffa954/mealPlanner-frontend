@@ -8,7 +8,7 @@ import { Card } from "../components/card_why";
 import { reviews } from "../seed/reviews";
 import { ReviewCard } from "../components/reviewCard";
 import { Link } from "react-router-dom";
-
+import { FooterWebsite } from "../components/footer_web";
 export function Home() {
   const teams = [
     {
@@ -149,7 +149,9 @@ export function Home() {
             </p>
             <div className="mt-8 flex flex-col sm:flex-row justify-center gap-4">
               <button className="bg-[#7B5E3C] text-white px-8 py-3 rounded-lg hover:bg-[#9C7248] transition-all shadow-lg hover:shadow-xl">
-                Coba gratis
+              <Link to="/ask" className="">
+  Coba Gratis
+</Link>
               </button>
               <button className="bg-white/10 backdrop-blur-sm border border-white/20 text-white px-6 py-3 rounded-lg hover:bg-white/20 transition-all shadow-sm">
                 Detail harga
@@ -300,6 +302,7 @@ export function Home() {
           {/* card container review index 13-25*/}
         </section>
       </main>
+      <FooterWebsite></FooterWebsite>
     </>
   );
 }
