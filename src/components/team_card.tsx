@@ -10,7 +10,7 @@ export function TeamCard({
   children: React.ReactNode;
 }) {
   return (
-    <div className="md:w-[300px] w-full  bg-white  rounded-lg shadow-sm border-[1.5px] border-gray-300">
+    <div className="md:w-[280px] w-full  bg-white  rounded-lg shadow-sm border-[1.5px] border-gray-300">
       <a href="#">{children}</a>
       <div className="p-5 border-t-2 border-gray-200">
         <a href="#">

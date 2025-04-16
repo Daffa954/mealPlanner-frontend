@@ -133,7 +133,7 @@ export function Home() {
           <div className="absolute inset-0 bg-black/20"></div>
           
           {/* Content with glassmorphism */}
-          <div className="max-w-4xl text-center backdrop-blur-lg bg-white/20 p-12 rounded-2xl border border-white/20 shadow-xl z-10 mx-4">
+          <div className="max-w-4xl text-center backdrop-blur-sm bg-[#b8b8b89d] p-12 rounded-3xl border border-white/20 shadow-xl z-10 mx-4">
             <h1 className="text-6xl md:text-7xl text-[#FCD47F] font-bold leading-tight mb-4">
               Meal Planner
             </h1>
