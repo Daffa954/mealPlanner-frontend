@@ -1,9 +1,11 @@
 // src/components/AskAIForm.tsx
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { askAIAPI, FormData } from "../apis/apiService";
 import { RecipeResponse } from "../models/Recip";
+import Loading from "../components/loading";
 
 export const AskAI: React.FC = () => {
+  const [isLoading, setIsLoading] = useState(false);
   const [formData, setFormData] = useState<FormData>({
     usia: "",
     lokasi: { kota: "", provinsi: "" },
@@ -71,14 +73,17 @@ export const AskAI: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setIsLoading(true);
+    console.log(isLoading)
     try {
       const response = await askAIAPI(formData);
-      console.log(response.status);
+     
       if (response.status == 200) {
         console.log("Response:", response);
         setRecipeResponse(response.data.recipeData); // ⬅️ Set state agar tampil
 
         console.log(response.data.recipeData);
+        setIsLoading(false);
       }
     } catch (error) {
       console.error("Gagal submit:", error);
@@ -192,58 +197,61 @@ export const AskAI: React.FC = () => {
           Simpan
         </button>
       </form>
-{/* RESPONSE */}
       {/* RESPONSE */}
-{recipeResponse.namaMakanan && (
-  <div className="md:w-[60%] w-full mx-auto mt-8 p-4 bg-green-100 rounded-xl shadow">
-    <h3 className="text-lg font-bold mb-2">Hasil Rekomendasi Makanan</h3>
-    <p>
-      <strong>Nama Makanan:</strong> {recipeResponse.namaMakanan}
-    </p>
-    <p>
-      <strong>Waktu Masak:</strong> {recipeResponse.waktu} menit
-    </p>
-    <p>
-      <strong>Porsi:</strong> {recipeResponse.porsi}
-    </p>
-    <p>
-      <strong>Berat:</strong> {recipeResponse.beratgram} gram
-    </p>
-
-    <div className="mt-2">
-      <strong>Bahan:</strong>
-      <ul className="list-disc ml-5">
-        {recipeResponse.bahan.map((b, i) => (
-          <li key={i}>{b}</li>
-        ))}
-      </ul>
-    </div>
-
-    <div className="mt-2">
-      <strong>Langkah:</strong>
-      <ul className="list-disc ml-5">
-        {recipeResponse.Langkah.map((b, i) => (
-          <li key={i}>{b}</li>
-        ))}
-      </ul>
-    </div>
-
-    <div className="mt-2">
-      <strong>Nutrisi:</strong>
-      <ul className="list-disc ml-5">
-        <li>Kalori: {recipeResponse.nutrisi.calories} kcal</li>
-        <li>Karbohidrat: {recipeResponse.nutrisi.carbohydrate} g</li>
-        <li>Protein: {recipeResponse.nutrisi.protein} g</li>
-        <li>Lemak Total: {recipeResponse.nutrisi.total_fat} g</li>
-        <li>Lemak Jenuh: {recipeResponse.nutrisi.saturated_fat} g</li>
-      </ul>
-    </div>
-  </div>
-)}
-{/* RESPONSE */}
+      <div className="w-full  p-6 flex justify-center items-center">
+      {isLoading && <Loading />}
+      </div>
 
       {/* RESPONSE */}
+      {recipeResponse.namaMakanan && (
+        <div className="md:w-[60%] w-full mx-auto mt-8 p-4 bg-green-100 rounded-xl shadow">
+          <h3 className="text-lg font-bold mb-2">Hasil Rekomendasi Makanan</h3>
+          <p>
+            <strong>Nama Makanan:</strong> {recipeResponse.namaMakanan}
+          </p>
+          <p>
+            <strong>Waktu Masak:</strong> {recipeResponse.waktu} menit
+          </p>
+          <p>
+            <strong>Porsi:</strong> {recipeResponse.porsi}
+          </p>
+          <p>
+            <strong>Berat:</strong> {recipeResponse.beratgram} gram
+          </p>
 
+          <div className="mt-2">
+            <strong>Bahan:</strong>
+            <ul className="list-disc ml-5">
+              {recipeResponse.bahan.map((b, i) => (
+                <li key={i}>{b}</li>
+              ))}
+            </ul>
+          </div>
+
+          <div className="mt-2">
+            <strong>Langkah:</strong>
+            <ul className="list-disc ml-5">
+              {recipeResponse.Langkah.map((b, i) => (
+                <li key={i}>{b}</li>
+              ))}
+            </ul>
+          </div>
+
+          <div className="mt-2">
+            <strong>Nutrisi:</strong>
+            <ul className="list-disc ml-5">
+              <li>Kalori: {recipeResponse.nutrisi.calories} kcal</li>
+              <li>Karbohidrat: {recipeResponse.nutrisi.carbohydrate} g</li>
+              <li>Protein: {recipeResponse.nutrisi.protein} g</li>
+              <li>Lemak Total: {recipeResponse.nutrisi.total_fat} g</li>
+              <li>Lemak Jenuh: {recipeResponse.nutrisi.saturated_fat} g</li>
+            </ul>
+          </div>
+        </div>
+      )}
+      {/* RESPONSE */}
+
+      {/* RESPONSE */}
     </div>
   );
 };

@@ -1,4 +1,5 @@
 import Logo from "../assets/logo-nobg.png";
+import LogoNobg from "../assets/logoNoBgWhite.png";
 
 export const FooterWebsite = () => {
   return (
@@ -9,7 +10,7 @@ export const FooterWebsite = () => {
             <div className="mb-6 md:mb-0">
               <a href="https://flowbite.com/" className="flex items-center">
                 <img
-                  src={Logo}
+                  src={LogoNobg}
                   className="size-28"
                   alt="FlowBite Logo"
                 />
