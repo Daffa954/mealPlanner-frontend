@@ -20,3 +20,29 @@ export const askAIAPI = async (formData: FormData) => {
     throw error;
   }
 };
+
+export const login = async (email: string, password: string) => {
+  try {
+    return axios.post("http://localhost:3000/users/login", {
+      email,
+      password,
+    });
+  } catch (error) {
+    console.error("Error calling AI API:", error);
+    throw error;
+  }
+  
+};
+
+export const register = async (email: string, password: string) => {
+  try {
+    return axios.post("http://localhost:3000/users/register", {
+      email,
+      password,
+    });
+  } catch (error) {
+    console.error("Error calling AI API:", error);
+    throw error;
+  }
+  
+}

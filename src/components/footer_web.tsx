@@ -1,4 +1,3 @@
-import Logo from "../assets/logo-nobg.png";
 import LogoNobg from "../assets/logoNoBgWhite.png";
 
 export const FooterWebsite = () => {

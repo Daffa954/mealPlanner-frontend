@@ -1,5 +1,5 @@
 // src/components/AskAIForm.tsx
-import React, { useEffect, useState } from "react";
+import React, {  useState } from "react";
 import { askAIAPI, FormData } from "../apis/apiService";
 import { RecipeResponse } from "../models/Recip";
 import Loading from "../components/loading";
