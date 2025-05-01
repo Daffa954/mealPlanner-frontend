@@ -53,3 +53,16 @@ export const register = async (
     throw error;
   }
 };
+
+export const getUserProfile = async (token: string) => {
+  try {
+    return axios.get("http://localhost:3000/api/getProfile", {
+      headers: {
+        "X-API-TOKEN": token,
+      },
+    });
+  } catch (error) {
+    console.error("Error calling AI API:", error);
+    throw error;
+  }
+};
