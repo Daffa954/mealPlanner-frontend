@@ -13,6 +13,7 @@ export const AskAI: React.FC = () => {
     bahanTersedia: [""],
     tipe: "",
   });
+  const token = sessionStorage.getItem("token");
   const [recipeResponse, setRecipeResponse] = useState<RecipeResponse>({
     namaMakanan: "",
     bahan: [""],
@@ -76,7 +77,7 @@ export const AskAI: React.FC = () => {
     setIsLoading(true);
     console.log(isLoading)
     try {
-      const response = await askAIAPI(formData);
+      const response = await askAIAPI(formData, token ? token : "");
      
       if (response.status == 200) {
         console.log("Response:", response);

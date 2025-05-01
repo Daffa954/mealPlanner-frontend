@@ -12,9 +12,13 @@ export type FormData = {
   tipe: string;
 };
 
-export const askAIAPI = async (formData: FormData) => {
+export const askAIAPI = async (formData: FormData, token: string) => {
   try {
-    return axios.post("http://localhost:3000/api/deepseek", formData);
+    return axios.post("http://localhost:3000/api/deepseek", formData, {
+      headers: {
+        "X-API-TOKEN": token,
+      },
+    });
   } catch (error) {
     console.error("Error calling AI API:", error);
     throw error;
