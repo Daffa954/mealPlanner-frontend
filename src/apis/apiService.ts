@@ -23,7 +23,7 @@ export const askAIAPI = async (formData: FormData) => {
 
 export const login = async (email: string, password: string) => {
   try {
-    return axios.post("http://localhost:3000/users/login", {
+    return axios.post("http://localhost:3000/api/login", {
       email,
       password,
     });
@@ -31,12 +31,16 @@ export const login = async (email: string, password: string) => {
     console.error("Error calling AI API:", error);
     throw error;
   }
-  
 };
 
-export const register = async (email: string, password: string) => {
+export const register = async (
+  name: string,
+  email: string,
+  password: string
+) => {
   try {
-    return axios.post("http://localhost:3000/users/register", {
+    return axios.post("http://localhost:3000/api/register", {
+      name,
       email,
       password,
     });
@@ -44,5 +48,4 @@ export const register = async (email: string, password: string) => {
     console.error("Error calling AI API:", error);
     throw error;
   }
-  
-}
+};

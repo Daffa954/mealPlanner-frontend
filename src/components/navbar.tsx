@@ -53,7 +53,9 @@ export default function Navbar() {
                 </Link>
             </button>
             <button className="border border-[#7B5E3C] text-[#7B5E3C] px-6 py-2 rounded-lg hover:bg-[#FCD47F]/20 transition">
-              Register
+            <Link to="/Register" className="">
+                  Register
+                </Link>
             </button>
           </div>
 
