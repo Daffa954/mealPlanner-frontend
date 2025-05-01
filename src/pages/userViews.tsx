@@ -5,9 +5,19 @@ import Logo from "../assets/logo-nobg.png";
 import child from "../assets/AddChild.png";
 import recipe from "../assets/GenerateRecipe.png";
 import schedule from "../assets/Calendar.png";
+import { useEffect } from "react";
 
 
 export const UserViews = () => {
+  useEffect(() => {
+    document.title = "Home";
+    //check the token and email
+    const token = sessionStorage.getItem("token");
+    const email = sessionStorage.getItem("email");
+    if (!token || !email) {
+      window.location.href = "/login";
+    }
+  }, []);
   return (
     <div className="min-h-screen bg-gray-100">
       {/* Header */}
