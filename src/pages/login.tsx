@@ -28,7 +28,7 @@ export const Login = () => {
         // console.log(response.data.token);
         sessionStorage.setItem("email", email);
         sessionStorage.setItem("token", response.data.response.token);
-        navigate("/userView");
+        navigate("/userViews");
       }
     } catch {
       alert("Login failed. Please check your email and password.");
