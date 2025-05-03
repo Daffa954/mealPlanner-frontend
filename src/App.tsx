@@ -7,6 +7,8 @@ import { AskAI } from './pages/askAi';
 import { Login } from './pages/login';
 import { UserViews } from './pages/userViews';
 import { Register } from './pages/register';
+import { AskAI2 } from './pages/tesform';
+import { AddChild } from './pages/addChild';
 function App() {
 
   return (
@@ -17,6 +19,9 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/userViews" element={<UserViews />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/tesform" element={<AskAI2 />} />
+        <Route path="/addChild" element={<AddChild />} />
+        <Route path="*" element={<div>404 Not Found</div>} />
         
       </Routes>
     </BrowserRouter>
