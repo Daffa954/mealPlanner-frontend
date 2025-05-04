@@ -19,3 +19,16 @@ export interface NutritionInfo {
     nutrition: NutritionInfo;
   
   }
+interface Preference {
+  allergens: string[];
+  favoriteFoods: string[];
+  lokasi: string;
+}
+  export interface ChildrenResponse {
+    id : number;
+    name: string;
+    age: number;
+   preference : Preference;
+  };
+  
+

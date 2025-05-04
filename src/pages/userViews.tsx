@@ -8,6 +8,7 @@ import schedule from "../assets/Calendar.png";
 import { useEffect, useState } from "react";
 import { getUserProfile } from "../apis/apiService";
 import { Link } from "react-router-dom";
+import { NavbarUser } from "../components/navbar_user";
 
 export const UserViews = () => {
   const [name, setName] = useState("");
@@ -39,19 +40,10 @@ export const UserViews = () => {
   return (
     <div className="min-h-screen bg-gray-100">
       {/* Header */}
-      <header className="bg-[#7B5E3C] h-20 text-white px-6 shadow-md">
-        <div className="flex h-full items-center justify-between max-w-screen-xl mx-auto">
-          <div className="flex items-center">
-            <div className="bg-[#FFF6E6] rounded-md">
-              <img className="h-14 w-auto" src={Logo} alt="Logo" />
-            </div>
-          </div>
-          <div className="text-right">
-            <p className="text-md">namaUser: {name}</p>
-            <p className="text-sm">Credit : {credit}</p>
-          </div>
-        </div>
-      </header>
+      <NavbarUser 
+        name={name} 
+        credit={credit.toString()} // Convert number ke string
+      />
 
       {/* Hero Section */}
       <section className="flex flex-col items-center justify-center pt-12 px-4">

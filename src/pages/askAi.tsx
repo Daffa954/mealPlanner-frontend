@@ -4,8 +4,14 @@ import { askAIAPI, FormData } from "../apis/apiService";
 import { RecipeResponse } from "../models/Recip";
 import Loading from "../components/loading";
 import Logo from "../assets/logo-nobg.png";
+import { useParams } from "react-router-dom";
 
 export const AskAI: React.FC = () => {
+  const { childId } = useParams<{ childId: string }>();
+  
+  // Gunakan childId untuk fetch data atau operasi lainnya
+  console.log('ID Anak:', childId);
+
   const [isLoading, setIsLoading] = useState(false);
   const [formData, setFormData] = useState<FormData>({
     usia: "",
