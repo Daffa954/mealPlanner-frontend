@@ -9,6 +9,7 @@ import { UserViews } from './pages/userViews';
 import { Register } from './pages/register';
 import { AskAI2 } from './pages/tesform';
 import { AddChild } from './pages/addChild';
+import { NotFound } from './pages/notFound';
 function App() {
 
   return (
@@ -21,7 +22,7 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/tesform" element={<AskAI2 />} />
         <Route path="/addChild" element={<AddChild />} />
-        <Route path="*" element={<div>404 Not Found</div>} />
+        <Route path="*" element={<NotFound />} />
         
       </Routes>
     </BrowserRouter>
