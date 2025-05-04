@@ -7,6 +7,7 @@ import recipe from "../assets/GenerateRecipe.png";
 import schedule from "../assets/Calendar.png";
 import { useEffect, useState } from "react";
 import { getUserProfile } from "../apis/apiService";
+import { Link } from "react-router-dom";
 
 export const UserViews = () => {
   const [name, setName] = useState("");
@@ -26,7 +27,7 @@ export const UserViews = () => {
   const getProfile = async () => {
     try {
       const response = await getUserProfile(token ? token : "");
-      if (response.status == 200) {        
+      if (response.status == 200) {
         setName(response.data.data.name);
         setCredit(response.data.data.credit);
       }
@@ -77,9 +78,11 @@ export const UserViews = () => {
             Masukkan usia dan alergi makanan anak Anda agar kami bisa membantu
             merancang menu yang aman dan sesuai tahap tumbuh kembangnya.
           </p>
-          <button className="bg-[#7B5E3C] text-white px-4 py-2 rounded-md hover:bg-[#63492c]">
-            Tambah Profil Anak
-          </button>
+          <Link to="/addChild" className="">
+            <button className="bg-[#7B5E3C] text-white px-4 py-2 rounded-md hover:bg-[#63492c]">
+              Tambah Profil Anak
+            </button>
+          </Link>
         </div>
 
         {/* Card 2 */}
@@ -94,9 +97,12 @@ export const UserViews = () => {
             Dapatkan rekomendasi resep yang bergizi dan ramah alergi berdasarkan
             profil anak Anda.
           </p>
-          <button className="bg-[#7B5E3C] text-white px-4 py-2 rounded-md hover:bg-[#63492c]">
-            Buat Resep
-          </button>
+          
+          <Link to="/ask" className="">
+            <button className="bg-[#7B5E3C] text-white px-4 py-2 rounded-md hover:bg-[#63492c]">
+              Buat Resep
+            </button>
+          </Link>
         </div>
 
         {/* Card 3 */}
