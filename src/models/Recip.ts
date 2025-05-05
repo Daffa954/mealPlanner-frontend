@@ -12,7 +12,7 @@ export interface NutritionInfo {
     name: string;
     description: string;
     ingredients: string[];
-    steps: string[];
+    step: string[];
     time: number;
     portion: number;
     weight: number;

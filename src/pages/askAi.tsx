@@ -8,18 +8,29 @@ import {
 } from "../apis/apiService";
 import { ChildrenResponse, RecipeResponse } from "../models/Recip";
 import Loading from "../components/loading";
-import { useParams } from "react-router-dom";
+import { useParams, useSearchParams } from "react-router-dom";
+
 import { NavbarUser } from "../components/navbar_user";
 import { RecipeCard } from "../components/recipe_card";
 
 export const AskAI: React.FC = () => {
   const { childId } = useParams<{ childId: string }>();
+  const [searchParams] = useSearchParams();
+  const date = searchParams.get("date");
+  //convert date to string dd/mm/yyyy
+  const dateObj = new Date(date ? date : "");
+  const day = dateObj.getDate().toString().padStart(2, "0");
+  const month = (dateObj.getMonth() + 1).toString().padStart(2, "0");
+  const year = dateObj.getFullYear();
+  const formattedDate = `${day}/${month}/${year}`;
+  console.log("formattedDate", formattedDate);
   const email = sessionStorage.getItem("email");
   const [name, setName] = useState("");
   const [credit, setCredit] = useState(0);
   const [childrenData, setChildrenData] = useState<ChildrenResponse | null>(
     null
   );
+  const [showRecipeModal, setShowRecipeModal] = useState(false);
 
   useEffect(() => {
     if (childrenData) {
@@ -34,7 +45,7 @@ export const AskAI: React.FC = () => {
       }));
     }
   }, [childrenData]);
-  
+
   const [isLoading, setIsLoading] = useState(false);
   const [formData, setFormData] = useState<FormData>({
     usia: "",
@@ -48,7 +59,7 @@ export const AskAI: React.FC = () => {
     name: "",
     description: "",
     ingredients: [],
-    steps: [],
+    step: [],
     time: 0,
     portion: 0,
     weight: 0,
@@ -137,17 +148,16 @@ export const AskAI: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsLoading(true);
-    console.log(isLoading);
     try {
       const response = await askAIAPI(formData, token ? token : "");
-
       if (response.status == 200) {
-        console.log("Response:", response.data.recipeData);
         setRecipeResponse(response.data.recipeData);
-        setIsLoading(false);
+        setShowRecipeModal(true); // Tampilkan modal
       }
     } catch (error) {
-      console.error("Gagal submit:", error);
+      alert("Gagal submit. Silakan coba lagi.");
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -176,18 +186,18 @@ export const AskAI: React.FC = () => {
       />
 
       {/* Main Content */}
-      <main className="max-w-screen-xl mx-auto px-4 sm:px-6 py-6">
+      <main className="max-w-screen-xl mx-auto px-4 sm:px-6 py-6 pt-11">
         {/* Form */}
         <form
           onSubmit={handleSubmit}
           className="md:w-[60%] w-full mx-auto p-4 sm:p-6 bg-[#FFF6E6] border border-[#D6C5AF] rounded-xl shadow-md"
         >
-          <h2 className="text-lg sm:text-xl font-semibold mb-4 text-[#7B5E3C]">
-            Pilih Makanan untuk {childrenData?.name}
+          <h2 className="md:text-3xl text-xl font-semibold mb-4 text-[#7B5E3C]">
+            Buat Resep Untuk {childrenData?.name}
           </h2>
 
           <div className="space-y-4">
-            <label className="block text-gray-700">
+            <label className="hidden text-gray-700">
               Usia:
               <input
                 type="number"
@@ -209,7 +219,7 @@ export const AskAI: React.FC = () => {
               />
             </label>
 
-            <label className="block text-gray-700">
+            <label className="hidden text-gray-700">
               Provinsi:
               <input
                 type="text"
@@ -294,8 +304,11 @@ export const AskAI: React.FC = () => {
         </div>
 
         {/* Response */}
-        {recipeResponse.name && (
-          <RecipeCard recipe={recipeResponse} />
+        {showRecipeModal && (
+          <RecipeCard
+            recipe={recipeResponse}
+            onClose={() => setShowRecipeModal(false)}
+          />
         )}
       </main>
     </div>
