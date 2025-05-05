@@ -1,12 +1,65 @@
-// RecipeCard.tsx
+import { useParams, useSearchParams } from "react-router-dom";
+import { createRecipe, createSchedule } from "../apis/apiService";
 import { RecipeResponse } from "../models/Recip";
+import { useState } from "react";
 
 interface ChildCardProps {
   recipe: RecipeResponse;
   onClose: () => void;
+  time: string;
+  type: string;
 }
 
-export const RecipeCard = ({ recipe, onClose }: ChildCardProps) => {
+export const RecipeCard = ({ recipe, onClose, time, type }: ChildCardProps) => {
+  const { childId } = useParams<{ childId: string }>();
+  const [searchParams] = useSearchParams();
+  const [recipeId, setRecipeId] = useState(0);
+  const date = searchParams.get("date");
+
+  const addSchedule = async () => {
+    try {
+      const token = sessionStorage.getItem("token");
+
+      let finalRecipeId = recipeId;
+
+      // Kalau resep belum ditambahkan ➔ tambahkan dulu
+      if (finalRecipeId === 0) {
+        const recipeResponse = await createRecipe(token ? token : "", recipe);
+        if (recipeResponse.status == 201) {
+          console.log("Recipe added to database successfully");
+          finalRecipeId = recipeResponse.data.addRecipe.id;
+          setRecipeId(finalRecipeId);
+        } else {
+          console.error("Failed to add recipe to database");
+          return;
+        }
+      }
+
+      // Lanjut buat jadwal
+      const scheduleResponse = await createSchedule(token ? token : "", {
+        childId: parseInt(childId ? childId : "0"),
+        date: date ? date : "",
+        recipes: [
+          {
+            recipeId: finalRecipeId,
+            type: type,
+            time: time,
+          },
+        ],
+      });
+
+      if (scheduleResponse.status == 201) {
+        console.log("Schedule added successfully");
+        alert("Jadwal berhasil ditambahkan!");
+        onClose();
+      } else {
+        console.error("Failed to add schedule");
+      }
+    } catch (error) {
+      console.error("Error adding schedule:", error);
+    }
+  };
+
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
       <div className="relative max-w-2xl w-full mx-4 max-h-[90vh] overflow-y-auto bg-white rounded-xl shadow-lg">
@@ -35,6 +88,9 @@ export const RecipeCard = ({ recipe, onClose }: ChildCardProps) => {
         <div className="p-6">
           <h3 className="text-2xl font-bold mb-4 text-[#7B5E3C]">
             Hasil Rekomendasi Makanan
+            {childId ? ` untuk ${childId}` : ""}
+            {date ? ` pada ${date}` : ""}
+            {" (ID: " + (recipeId !== 0 ? recipeId : "Belum ditambahkan") + ")"}
           </h3>
 
           <div className="space-y-2">
@@ -83,13 +139,15 @@ export const RecipeCard = ({ recipe, onClose }: ChildCardProps) => {
               <li>Lemak Jenuh: {recipe.nutrition.saturated_fat} g</li>
             </ul>
           </div>
+
           <div className="flex w-full">
-            <button className="bg-[#7B5E3C] text-white px-4 py-2 rounded-md mt-4">
-              cari lagi
+            <button
+              className="bg-[#7B5E3C] text-white px-4 py-2 rounded-md mt-4 ml-auto"
+              onClick={addSchedule}
+            >
+              Tambah Resep & Buat Jadwal
             </button>
-            <button className="bg-[#7B5E3C] text-white px-4 py-2 rounded-md mt-4 ml-4">
-              Simpan Resep
-            </button>
+            
           </div>
         </div>
       </div>

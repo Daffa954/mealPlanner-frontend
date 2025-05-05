@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useParams, useSearchParams } from "react-router-dom";
 import { ChildrenResponse } from "../models/Recip";
 import { useState } from "react";
 import DatePicker from "react-datepicker";
@@ -15,6 +15,8 @@ const formatDate = (date: Date): string => {
 };
 
 export const ChildCard = ({ child }: ChildCardProps) => {
+ 
+
   const [showDatePicker, setShowDatePicker] = useState(false);
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   const handleOpenDatePicker = () => {
@@ -31,7 +33,7 @@ export const ChildCard = ({ child }: ChildCardProps) => {
       </div>
 
       <div className="mt-4">
-        <h3 className="font-semibold text-gray-700 mb-2">Preferensi:</h3>
+        
         <div className="space-y-2">
           <div>
             <span className="font-medium text-gray-600">Alergi: </span>

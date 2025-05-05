@@ -1,5 +1,11 @@
 // src/api/askAI.ts
 import axios from "axios";
+import {
+  AddChildrenRequest,
+  
+  CreateScheduleRequest,
+  RecipeResponse,
+} from "../models/Recip";
 
 export type FormData = {
   usia: string;
@@ -87,6 +93,58 @@ export const getChildren = async (token: string, id: string) => {
         "X-API-TOKEN": token,
       },
     });
+  } catch (error) {
+    console.error("Error calling AI API:", error);
+    throw error;
+  }
+};
+
+export const createRecipe = async (
+  token: string,
+  recipeResponse: RecipeResponse
+) => {
+  try {
+    return axios.post("http://localhost:3000/api/addRecipe", recipeResponse, {
+      headers: {
+        "X-API-TOKEN": token,
+      },
+    });
+  } catch (error) {
+    console.error("Error calling AI API:", error);
+    throw error;
+  }
+};
+
+export const createSchedule = async (
+  token: string,
+  createRequest: CreateScheduleRequest
+) => {
+  try {
+    return axios.post("http://localhost:3000/api/schedules", createRequest, {
+      headers: {
+        "X-API-TOKEN": token,
+      },
+    });
+  } catch (error) {
+    console.error("Error calling AI API:", error);
+    throw error;
+  }
+};
+
+export const addChildren = async (
+  token: string,
+  addChildrenRequest: AddChildrenRequest
+) => {
+  try {
+    return axios.post(
+      "http://localhost:3000/api/addChildren",
+      addChildrenRequest,
+      {
+        headers: {
+          "X-API-TOKEN": token,
+        },
+      }
+    );
   } catch (error) {
     console.error("Error calling AI API:", error);
     throw error;

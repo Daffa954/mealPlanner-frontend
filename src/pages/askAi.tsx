@@ -17,16 +17,11 @@ export const AskAI: React.FC = () => {
   const { childId } = useParams<{ childId: string }>();
   const [searchParams] = useSearchParams();
   const date = searchParams.get("date");
-  //convert date to string dd/mm/yyyy
-  const dateObj = new Date(date ? date : "");
-  const day = dateObj.getDate().toString().padStart(2, "0");
-  const month = (dateObj.getMonth() + 1).toString().padStart(2, "0");
-  const year = dateObj.getFullYear();
-  const formattedDate = `${day}/${month}/${year}`;
-  console.log("formattedDate", formattedDate);
+
   const email = sessionStorage.getItem("email");
   const [name, setName] = useState("");
   const [credit, setCredit] = useState(0);
+  const [time, setTime] = useState("");
   const [childrenData, setChildrenData] = useState<ChildrenResponse | null>(
     null
   );
@@ -94,9 +89,7 @@ export const AskAI: React.FC = () => {
         childId ? childId : ""
       );
       if (response.status == 200) {
-        console.log(response.data.data);
         setChildrenData(response.data.data);
-        console.log("ini child " + childrenData);
       }
     } catch {
       console.log("FAILED TO GET DATA");
@@ -288,8 +281,19 @@ export const AskAI: React.FC = () => {
                 <option value="makan malam">Makan Malam</option>
               </select>
             </label>
+            <div>
+          <label className=" text-gray-700">
+            Jam:
+            <input
+              type="time"
+              value={time}
+              onChange={(e) => setTime(e.target.value)}
+              className="w-full border border-[#D6C5AF] p-2 rounded mt-1 bg-white text-sm sm:text-base"
+            />
+          </label>
+            </div>
           </div>
-
+         
           <button
             type="submit"
             className="w-full bg-[#7B5E3C] text-white px-4 py-2 mt-6 rounded-md hover:bg-[#63492c] text-sm sm:text-base"
@@ -308,6 +312,8 @@ export const AskAI: React.FC = () => {
           <RecipeCard
             recipe={recipeResponse}
             onClose={() => setShowRecipeModal(false)}
+            time= {time}
+            type = {formData.tipe}
           />
         )}
       </main>
