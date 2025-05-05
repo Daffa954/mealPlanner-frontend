@@ -1,7 +1,6 @@
 //nambah anak
 //bikin jadwal
 
-import Logo from "../assets/logo-nobg.png";
 import child from "../assets/AddChild.png";
 import recipe from "../assets/GenerateRecipe.png";
 import schedule from "../assets/Calendar.png";

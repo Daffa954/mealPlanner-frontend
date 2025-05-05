@@ -1,17 +1,40 @@
 // src/components/AskAIForm.tsx
-import React, {  useState } from "react";
-import { askAIAPI, FormData } from "../apis/apiService";
-import { RecipeResponse } from "../models/Recip";
+import React, { useEffect, useState } from "react";
+import {
+  askAIAPI,
+  FormData,
+  getChildren,
+  getUserProfile,
+} from "../apis/apiService";
+import { ChildrenResponse, RecipeResponse } from "../models/Recip";
 import Loading from "../components/loading";
-import Logo from "../assets/logo-nobg.png";
 import { useParams } from "react-router-dom";
+import { NavbarUser } from "../components/navbar_user";
+import { RecipeCard } from "../components/recipe_card";
 
 export const AskAI: React.FC = () => {
   const { childId } = useParams<{ childId: string }>();
-  
-  // Gunakan childId untuk fetch data atau operasi lainnya
-  console.log('ID Anak:', childId);
+  const email = sessionStorage.getItem("email");
+  const [name, setName] = useState("");
+  const [credit, setCredit] = useState(0);
+  const [childrenData, setChildrenData] = useState<ChildrenResponse | null>(
+    null
+  );
 
+  useEffect(() => {
+    if (childrenData) {
+      setFormData((prev) => ({
+        ...prev,
+        usia: childrenData.age.toString(),
+        lokasi: {
+          kota: childrenData.preference?.lokasi || "",
+          provinsi: "",
+        },
+        alergen: childrenData.preference?.allergens || [],
+      }));
+    }
+  }, [childrenData]);
+  
   const [isLoading, setIsLoading] = useState(false);
   const [formData, setFormData] = useState<FormData>({
     usia: "",
@@ -22,23 +45,53 @@ export const AskAI: React.FC = () => {
   });
   const token = sessionStorage.getItem("token");
   const [recipeResponse, setRecipeResponse] = useState<RecipeResponse>({
-   name: "",
-       description: "",
-       ingredients: [],
-       steps: [],
-       time: 0,
-       portion: 0,
-       weight: 0,
-       nutrition: {
-         calories: 0,
-         protein: 0,
-         carbohydrate: 0,
-         total_fat: 0,
-         saturated_fat: 0
-       }
-
+    name: "",
+    description: "",
+    ingredients: [],
+    steps: [],
+    time: 0,
+    portion: 0,
+    weight: 0,
+    nutrition: {
+      calories: 0,
+      protein: 0,
+      carbohydrate: 0,
+      total_fat: 0,
+      saturated_fat: 0,
+    },
   });
 
+  const getProfile = async () => {
+    try {
+      const response = await getUserProfile(token ? token : "");
+      if (response.status == 200) {
+        setName(response.data.data.name);
+        setCredit(response.data.data.credit);
+      }
+    } catch {
+      console.log("Login failed. Please check your email and password.");
+    }
+  };
+  const getChildrenApi = async () => {
+    if (!childId) {
+      console.log("Child ID belum tersedia");
+      return;
+    }
+    try {
+      const response = await getChildren(
+        token ? token : "",
+        childId ? childId : ""
+      );
+      if (response.status == 200) {
+        console.log(response.data.data);
+        setChildrenData(response.data.data);
+        console.log("ini child " + childrenData);
+      }
+    } catch {
+      console.log("FAILED TO GET DATA");
+    }
+  };
+  // Gunakan childId untuk fetch data atau operasi lainnya
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
@@ -84,13 +137,13 @@ export const AskAI: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsLoading(true);
-    console.log(isLoading)
+    console.log(isLoading);
     try {
       const response = await askAIAPI(formData, token ? token : "");
-     
+
       if (response.status == 200) {
         console.log("Response:", response.data.recipeData);
-        setRecipeResponse(response.data.recipeData); 
+        setRecipeResponse(response.data.recipeData);
         setIsLoading(false);
       }
     } catch (error) {
@@ -98,24 +151,30 @@ export const AskAI: React.FC = () => {
     }
   };
 
-  {/*Responsive by DeepSeek*/}
+  useEffect(() => {
+    let isMounted = true;
+
+    const fetchInitialData = async () => {
+      if (token && email && childId && isMounted) {
+        await getProfile();
+        await getChildrenApi();
+      }
+    };
+
+    fetchInitialData();
+
+    return () => {
+      isMounted = false;
+    };
+  }, [token, email, childId]);
+
   return (
     <div className="w-full min-h-screen bg-gray-100">
-      {/* Header */}
-      <header className="bg-[#7B5E3C] h-20 text-white px-4 sm:px-6 shadow-md sticky top-0 z-50">
-        <div className="flex h-full items-center justify-between max-w-screen-xl mx-auto">
-          <div className="flex items-center">
-            <div className="bg-[#FFF6E6] rounded-md">
-              <img className="h-12 sm:h-14 w-auto" src={Logo} alt="Logo" />
-            </div>
-          </div>
-          <div className="text-right">
-            <p className="text-sm sm:text-md">namaUser</p>
-            <p className="text-xs sm:text-sm">Credit : 5</p>
-          </div>
-        </div>
-      </header>
-  
+      <NavbarUser
+        name={name}
+        credit={credit.toString()} // Convert number ke string
+      />
+
       {/* Main Content */}
       <main className="max-w-screen-xl mx-auto px-4 sm:px-6 py-6">
         {/* Form */}
@@ -123,8 +182,10 @@ export const AskAI: React.FC = () => {
           onSubmit={handleSubmit}
           className="md:w-[60%] w-full mx-auto p-4 sm:p-6 bg-[#FFF6E6] border border-[#D6C5AF] rounded-xl shadow-md"
         >
-          <h2 className="text-lg sm:text-xl font-semibold mb-4 text-[#7B5E3C]">Formulir Makanan</h2>
-  
+          <h2 className="text-lg sm:text-xl font-semibold mb-4 text-[#7B5E3C]">
+            Pilih Makanan untuk {childrenData?.name}
+          </h2>
+
           <div className="space-y-4">
             <label className="block text-gray-700">
               Usia:
@@ -136,7 +197,7 @@ export const AskAI: React.FC = () => {
                 className="w-full border border-[#D6C5AF] p-2 rounded mt-1 bg-white text-sm sm:text-base"
               />
             </label>
-  
+
             <label className="block text-gray-700">
               Kota:
               <input
@@ -147,7 +208,7 @@ export const AskAI: React.FC = () => {
                 className="w-full border border-[#D6C5AF] p-2 rounded mt-1 bg-white text-sm sm:text-base"
               />
             </label>
-  
+
             <label className="block text-gray-700">
               Provinsi:
               <input
@@ -158,7 +219,7 @@ export const AskAI: React.FC = () => {
                 className="w-full border border-[#D6C5AF] p-2 rounded mt-1 bg-white text-sm sm:text-base"
               />
             </label>
-  
+
             <div className="text-gray-700">
               <label>Alergen:</label>
               {formData.alergen.map((item, index) => (
@@ -166,7 +227,9 @@ export const AskAI: React.FC = () => {
                   key={index}
                   type="text"
                   value={item}
-                  onChange={(e) => handleArrayChange("alergen", index, e.target.value)}
+                  onChange={(e) =>
+                    handleArrayChange("alergen", index, e.target.value)
+                  }
                   className="w-full border border-[#D6C5AF] p-2 rounded mt-1 bg-white text-sm sm:text-base"
                 />
               ))}
@@ -178,7 +241,7 @@ export const AskAI: React.FC = () => {
                 + Tambah Alergen
               </button>
             </div>
-  
+
             <div className="text-gray-700">
               <label>Bahan Yang Anda Miliki Saat Ini:</label>
               {formData.bahanTersedia.map((item, index) => (
@@ -186,7 +249,9 @@ export const AskAI: React.FC = () => {
                   key={index}
                   type="text"
                   value={item}
-                  onChange={(e) => handleArrayChange("bahanTersedia", index, e.target.value)}
+                  onChange={(e) =>
+                    handleArrayChange("bahanTersedia", index, e.target.value)
+                  }
                   className="w-full border border-[#D6C5AF] p-2 rounded mt-1 bg-white text-sm sm:text-base"
                 />
               ))}
@@ -198,7 +263,7 @@ export const AskAI: React.FC = () => {
                 + Tambah Bahan
               </button>
             </div>
-  
+
             <label className="block text-gray-700">
               Tipe:
               <select
@@ -214,7 +279,7 @@ export const AskAI: React.FC = () => {
               </select>
             </label>
           </div>
-  
+
           <button
             type="submit"
             className="w-full bg-[#7B5E3C] text-white px-4 py-2 mt-6 rounded-md hover:bg-[#63492c] text-sm sm:text-base"
@@ -222,53 +287,15 @@ export const AskAI: React.FC = () => {
             Simpan
           </button>
         </form>
-  
+
         {/* Loading Indicator */}
         <div className="w-full p-4 sm:p-6 flex justify-center items-center">
           {isLoading && <Loading />}
         </div>
-  
+
         {/* Response */}
         {recipeResponse.name && (
-          <div className="md:w-[60%] w-full mx-auto mt-6 sm:mt-8 p-4 sm:p-6 bg-[#FFF6E6] border border-[#D6C5AF] rounded-xl shadow-md">
-            <h3 className="text-md sm:text-lg font-bold mb-2 text-[#7B5E3C]">Hasil Rekomendasi Makanan</h3>
-            
-            <div className="space-y-2 text-sm sm:text-base">
-              <p><strong className="text-gray-700">Nama Makanan:</strong> {recipeResponse.name}</p>
-              <p><strong className="text-gray-700">Waktu Masak:</strong> {recipeResponse.time} menit</p>
-              <p><strong className="text-gray-700">Porsi:</strong> {recipeResponse.portion}</p>
-              <p><strong className="text-gray-700">Berat:</strong> {recipeResponse.weight} gram</p>
-            </div>
-  
-            <div className="mt-4 text-sm sm:text-base">
-              <strong className="text-gray-700">Bahan:</strong>
-              <ul className="list-disc ml-5 mt-1">
-                {recipeResponse.ingredients.map((b, i) => (
-                  <li key={i}>{b}</li>
-                ))}
-              </ul>
-            </div>
-  
-            <div className="mt-4 text-sm sm:text-base">
-              <strong className="text-gray-700">Langkah:</strong>
-              <ul className="list-disc ml-5 mt-1">
-                {recipeResponse.steps.map((b, i) => (
-                  <li key={i}>{b}</li>
-                ))}
-              </ul>
-            </div>
-  
-            <div className="mt-4 text-sm sm:text-base">
-              <strong className="text-gray-700">Nutrisi:</strong>
-              <ul className="list-disc ml-5 mt-1">
-                <li>Kalori: {recipeResponse.nutrition.calories} kcal</li>
-                <li>Karbohidrat: {recipeResponse.nutrition.carbohydrate} g</li>
-                <li>Protein: {recipeResponse.nutrition.protein} g</li>
-                <li>Lemak Total: {recipeResponse.nutrition.total_fat} g</li>
-                <li>Lemak Jenuh: {recipeResponse.nutrition.saturated_fat} g</li>
-              </ul>
-            </div>
-          </div>
+          <RecipeCard recipe={recipeResponse} />
         )}
       </main>
     </div>

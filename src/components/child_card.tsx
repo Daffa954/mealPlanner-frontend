@@ -7,7 +7,7 @@ interface ChildCardProps {
 
 export const ChildCard = ({ child }: ChildCardProps) => {
   return (
-    <div className="bg-white rounded-lg shadow-md p-6 mb-4 w-[300px] h-[310px]">
+    <div className="bg-white rounded-lg shadow-md p-6 mb-4 w-[300px] h-[310px] border-2 border-gray-300">
       <div className="mb-4 border-b pb-2">
         <h2 className="text-xl font-bold text-gray-800">{child.name}</h2>
         <p className="text-gray-600">Usia: {child.age} tahun</p>

@@ -79,3 +79,16 @@ export const getAllChildrens = async (token: string) => {
     throw error;
   }
 };
+
+export const getChildren = async (token: string, id: string) => {
+  try {
+    return axios.get(`http://localhost:3000/api/getChildren/${id}`, {
+      headers: {
+        "X-API-TOKEN": token,
+      },
+    });
+  } catch (error) {
+    console.error("Error calling AI API:", error);
+    throw error;
+  }
+};

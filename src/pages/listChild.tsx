@@ -24,10 +24,8 @@ export const ListChildView = () => {
   const callApiGetAllChildrens = async () => {
     try {
       const response = await getAllChildrens(token ? token : "");
-      console.log(response.data.data);
       if (response.status == 200){
         console.log(response.data.data);
-
         setChildrenData(response.data.data);
       } 
     } catch {
@@ -60,10 +58,10 @@ export const ListChildView = () => {
         </section>
         {/* card section */}
         {/* Card section */}
-        <section className="flex flex-wrap w-full px-24 py-6 bg-slate-500 gap-x-6 gap-y-4">
+        <section className="flex flex-wrap w-full px-24 py-6  gap-x-6 gap-y-4">
           {childrenData.length > 0 ? (
             childrenData.map((child) => (
-              <ChildCard  child={child } /> 
+              <ChildCard key={child.id} child={child } /> 
             ))
           ) : (
             <div className="w-full text-center text-white py-8">
