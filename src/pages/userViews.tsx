@@ -89,7 +89,7 @@ export const UserViews = () => {
             profil anak Anda.
           </p>
           
-          <Link to="/ask" className="">
+          <Link to="/listChild" className="">
             <button className="bg-[#7B5E3C] text-white px-4 py-2 rounded-md hover:bg-[#63492c]">
               Buat Resep
             </button>
