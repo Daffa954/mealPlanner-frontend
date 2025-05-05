@@ -17,10 +17,10 @@ export const RecipeCard = ({ recipe, onClose }: ChildCardProps) => {
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            className="h-6 w-6"
-            fill="none"
+            className="h-8 w-8"
+            fill="red"
             viewBox="0 0 24 24"
-            stroke="currentColor"
+            stroke="red"
           >
             <path
               strokeLinecap="round"
@@ -88,7 +88,7 @@ export const RecipeCard = ({ recipe, onClose }: ChildCardProps) => {
               cari lagi
             </button>
             <button className="bg-[#7B5E3C] text-white px-4 py-2 rounded-md mt-4 ml-4">
-              Simpan untuk tanggal
+              Simpan Resep
             </button>
           </div>
         </div>

@@ -7,11 +7,22 @@ import "react-datepicker/dist/react-datepicker.css";
 interface ChildCardProps {
   child: ChildrenResponse;
 }
+const formatDate = (date: Date): string => {
+  const day = String(date.getDate()).padStart(2, "0");
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+  const year = date.getFullYear();
+  return `${day}/${month}/${year}`;
+};
 
 export const ChildCard = ({ child }: ChildCardProps) => {
   const [showDatePicker, setShowDatePicker] = useState(false);
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
-
+  const handleOpenDatePicker = () => {
+    if (!selectedDate) {
+      setSelectedDate(new Date()); // Set ke tanggal hari ini jika belum ada nilai
+    }
+    setShowDatePicker(true);
+  };
   return (
     <div className="bg-white rounded-lg shadow-md p-6 mb-4 w-[300px] h-[310px] border-2 border-gray-300 relative">
       <div className="mb-4 border-b pb-2">
@@ -52,7 +63,7 @@ export const ChildCard = ({ child }: ChildCardProps) => {
       </div>
 
       <button
-        onClick={() => setShowDatePicker(true)}
+        onClick={handleOpenDatePicker}
         className="bg-[#7B5E3C] text-white px-4 py-2 rounded-md mt-4"
       >
         Buat Jadwal Tanggal
@@ -60,7 +71,9 @@ export const ChildCard = ({ child }: ChildCardProps) => {
 
       {showDatePicker && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-8">
-          <div className="bg-white rounded-lg p-6 md:w-[30%] w-full"> {/* Lebar diperbesar */}
+          <div className="bg-white rounded-lg p-6 md:w-[30%] w-full">
+            {" "}
+            {/* Lebar diperbesar */}
             <div className="flex justify-between items-center mb-4 ">
               <h3 className="text-xl font-semibold">
                 Pilih Tanggal untuk {child.name}
@@ -72,17 +85,15 @@ export const ChildCard = ({ child }: ChildCardProps) => {
                 ✕
               </button>
             </div>
-        <div className="w-full flex justify-center">
-        <DatePicker
-              selected={selectedDate}
-              onChange={(date) => date && setSelectedDate(date)}
-              inline
-              minDate={new Date()}
-              calendarClassName=""
-            />
-        </div>
-
-
+            <div className="w-full flex justify-center">
+              <DatePicker
+                selected={selectedDate}
+                onChange={(date) => date && setSelectedDate(date)}
+                inline
+                minDate={new Date()}
+                calendarClassName=""
+              />
+            </div>
             <div className="mt-4 flex justify-between gap-2">
               <button
                 onClick={() => setShowDatePicker(false)}
@@ -91,7 +102,9 @@ export const ChildCard = ({ child }: ChildCardProps) => {
                 Batal
               </button>
               <Link
-                to={`/askAi/${child.id}?date=${selectedDate?.toISOString()}`}
+                to={`/askAi/${child.id}?date=${
+                  selectedDate ? formatDate(selectedDate) : ""
+                }`}
               >
                 <button
                   onClick={() => {
