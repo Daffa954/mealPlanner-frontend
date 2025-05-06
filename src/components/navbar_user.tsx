@@ -1,25 +1,23 @@
-// import Logo from "../assets/logo-nobg.png";
-
-// // Perbaiki parameter dengan menggunakan props object
-// export const NavbarUser = ({ name, credit }: { name: string; credit: string }) => {
-//   return ( // Tambahkan return statement
-//     <header className="bg-[#7B5E3C] h-20 text-white px-6 shadow-md sticky top-0 z-50">
-//       <div className="flex h-full items-center justify-between max-w-screen-xl mx-auto">
-//         <div className="flex items-center">
-//           <div className="bg-[#FFF6E6] rounded-md">
-//             <img className="h-14 w-auto" src={Logo} alt="Logo" />
-//           </div>
-//         </div>
-//         <div className="text-right">
-//           <p className="text-md font-medium">{name}</p>
-//           <p className="text-sm">Credit : {credit}</p>
-//         </div>
-//       </div>
-//     </header>
-//   );
-// };
-
 import Logo from "../assets/logo-nobg.png";
+import {
+  Disclosure,
+  DisclosureButton,
+  DisclosurePanel,
+} from "@headlessui/react";
+import { Bars3Icon } from "@heroicons/react/24/outline";
+
+
+import { Link } from "react-router-dom";
+
+const navigation = [
+  { name: "Home", href: "/", current: true },
+  { name: "Our Product", href: "about", current: false },
+  { name: "Our Teams", href: "myprojects", current: false },
+];
+
+function classNames(...classes: string[]) {
+  return classes.filter(Boolean).join(" ");
+}
 
 export const NavbarUser = ({
   name,
@@ -29,55 +27,69 @@ export const NavbarUser = ({
   credit: string;
 }) => {
   return (
-    <header className="bg-[#7B5E3C] h-20 text-white px-6 shadow-md sticky top-0 z-50">
-      <div className="flex h-full items-center justify-between max-w-screen-xl mx-auto">
-        <div className="flex items-center gap-4">
-          <div className="bg-[#FFF6E6] rounded-md">
-            <img className="h-14 w-auto" src={Logo} alt="Logo" />
+    <Disclosure as="nav" className="bg-white shadow-md p-[8px]">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex h-16 items-center justify-between">
+          {/* Logo */}
+          <div className="flex items-center">
+            <img className="h-24 w-auto" src={Logo} alt="Logo" />
           </div>
-        </div>
-        {/* Navigation Menu */}
-        <nav className="hidden md:flex items-center gap-16 ml-6">
-          <a
-            href="/addChild"
-            className="hover:text-[#ffe1ae] transition-colors duration-200"
-          >
-            Tambah Profil
-          </a>
-          <a
-            href="/userViews"
-            className="hover:text-[#ffe1ae] transition-colors duration-200"
-          >
-            Buat Resep
-          </a>
-          <a
-            href="/listSchedulle"
-            className="hover:text-[#ffe1ae] transition-colors duration-200"
-          >
-            Jadwal
-          </a>
-        </nav>
-        {/* User Info */}
-        <div className="text-right">
-          <p className="text-md font-medium">{name}</p>
-          <p className="text-sm">Credit : {credit}</p>
+
+          {/* Desktop Navigation */}
+          <div className="hidden md:flex space-x-8">
+            {navigation.map((item) => (
+              <a
+                key={item.name}
+                href={item.href}
+                className={classNames(
+                  item.current
+                    ? "text-[#7B5E3C] font-semibold" // Earthy brown for active
+                    : "text-gray-600 hover:text-[#9C7248]", // Lighter brown hover
+                  "transition text-lg px-3 py-2"
+                )}
+              >
+                {item.name}
+              </a>
+            ))}
+          </div>
+
+          {/* Desktop Buttons */}
+          <div className="hidden md:block bg-red-500">
+            <p>{name}</p>
+            <p>{credit}</p>
+          </div>
+
+          {/* Mobile Button */}
+          <div className="md:hidden">
+            <DisclosureButton className="inline-flex items-center justify-center rounded-md p-2 text-[#7B5E3C] border-2 border-[#7B5E3C] hover:bg-[#FCD47F]/10">
+              <Bars3Icon className="block h-6 w-6" aria-hidden="true" />
+            </DisclosureButton>
+          </div>
         </div>
       </div>
 
-      {/* Mobile Menu Button (optional) */}
-      <div className="md:hidden flex justify-center mt-2 pb-2">
-        <div className="flex gap-4">
-          <a href="/add-profile" className="text-sm hover:text-[#FFF6E6]">
-            Tambah Profil
-          </a>
-          <a href="/create-recipe" className="text-sm hover:text-[#FFF6E6]">
-            Buat Resep
-          </a>
-          <a href="/schedule" className="text-sm hover:text-[#FFF6E6]">
-            Jadwal
-          </a>
+      {/* Mobile Menu */}
+      <DisclosurePanel className="md:hidden px-4 pt-4 pb-6 space-y-4 bg-white border-t">
+        {navigation.map((item) => (
+          <DisclosureButton
+            key={item.name}
+            as="a"
+            href={item.href}
+            className={classNames(
+              item.current
+                ? "text-[#7B5E3C] font-semibold"
+                : "text-gray-600 hover:text-[#9C7248]",
+              "block text-base"
+            )}
+          >
+            {item.name}
+          </DisclosureButton>
+        ))}
+        <div className="pt-4 space-y-3">
+          <p>{name}</p>
+          <p>{credit}</p>
         </div>
-      </div>
-    </header>
+      </DisclosurePanel>
+    </Disclosure>
   );
 };

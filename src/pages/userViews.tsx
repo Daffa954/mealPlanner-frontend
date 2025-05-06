@@ -40,11 +40,12 @@ export const UserViews = () => {
   return (
     <div className="min-h-screen bg-gray-100">
       {/* Header */}
-      <NavbarUser 
-        name={name} 
+      <NavbarUser
+        name={name}
         credit={credit.toString()} // Convert number ke string
       />
 
+      
       {/* Hero Section */}
       <section className="flex flex-col items-center justify-center pt-12 px-4">
         <h1 className="text-3xl font-medium text-center mb-8">
@@ -89,7 +90,7 @@ export const UserViews = () => {
             Dapatkan rekomendasi resep yang bergizi dan ramah alergi berdasarkan
             profil anak Anda.
           </p>
-          
+
           <Link to="/listChild" className="">
             <button className="bg-[#7B5E3C] text-white px-4 py-2 rounded-md hover:bg-[#63492c]">
               Buat Resep
@@ -121,4 +122,3 @@ export const UserViews = () => {
     </div>
   );
 };
-
