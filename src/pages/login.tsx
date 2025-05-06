@@ -1,9 +1,35 @@
 // state
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { login } from "../apis/apiService";
+import { Link, useNavigate } from "react-router-dom";
+import { getUserProfile, login } from "../apis/apiService";
+import { NavbarUser } from "../components/navbar_user";
 
 export const Login = () => {
+  const [nameUser, setNameUser] = useState("");
+    const [credit, setCredit] = useState(0);
+    const token = sessionStorage.getItem("token");
+    const emailUser = sessionStorage.getItem("email");
+  
+    useEffect(() => {
+      document.title = "Home";
+      //check the token and email
+      if (!token || !emailUser) {
+        window.location.href = "/login";
+      }
+      getProfile();
+    }, [token, emailUser]);
+  
+    const getProfile = async () => {
+      try {
+        const response = await getUserProfile(token ? token : "");
+        if (response.status == 200) {
+          setNameUser(response.data.data.name);
+          setCredit(response.data.data.credit);
+        }
+      } catch {
+        console.log("Login failed. Please check your email and password.");
+      }
+    };
   const navigate = useNavigate();
   useEffect(() => {
     document.title = "Login";
@@ -36,6 +62,11 @@ export const Login = () => {
   };
 
   return (
+    <div className="w-full">
+          {/* Header */}
+          {/* <NavbarUser
+            name={nameUser}
+            credit={credit.toString()} /> */}
     <div className="min-h-screen bg-gradient-to-br from-gray-100 to-gray-300 flex items-center justify-center px-5">
       <form
         className="w-full md:w-[40%] bg-white rounded-2xl shadow-xl p-8"
@@ -51,7 +82,7 @@ export const Login = () => {
             </label>
             <input
               type="email"
-              placeholder="Username"
+              placeholder="Email"
               value={email}
               onChange={handleEmailChange}
               className="p-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#7B5E3C] focus:border-transparent transition"
@@ -76,12 +107,14 @@ export const Login = () => {
           >
             Login
           </button>
-          <p className="text-sm text-center text-gray-500">
+          
+          <Link to="/register" className="text-sm text-center text-gray-500">
             Don't have an account?{" "}
-            
-          </p>
+          </Link>
+          
         </div>
       </form>
+    </div>
     </div>
   );
 };

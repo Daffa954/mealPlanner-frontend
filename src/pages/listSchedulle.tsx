@@ -8,6 +8,7 @@ import {
 import { NavbarUser } from "../components/navbar_user";
 import { Schedule, GroupedSchedule } from "../models/Recip"; // Pastikan interface GroupedSchedule ada
 import MealScheduleCard from "../components/scheduleCard";
+import { FooterWebsite } from "../components/footer_web";
 export const ListScheduleView = () => {
   const token = sessionStorage.getItem("token");
   const email = sessionStorage.getItem("email");
@@ -56,6 +57,7 @@ export const ListScheduleView = () => {
   }, [token, email]);
 
   return (
+    <>
     <div className="w-full min-h-screen bg-gray-100 pb-8">
       <NavbarUser name={name} credit={credit.toString()} />
 
@@ -131,6 +133,9 @@ export const ListScheduleView = () => {
           ))}
         </section>
       )}
+      
     </div>
+    <FooterWebsite></FooterWebsite>
+    </>
   );
 };

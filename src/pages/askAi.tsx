@@ -298,7 +298,7 @@ export const AskAI: React.FC = () => {
             type="submit"
             className="w-full bg-[#7B5E3C] text-white px-4 py-2 mt-6 rounded-md hover:bg-[#63492c] text-sm sm:text-base"
           >
-            Simpan
+            Buat Resep
           </button>
         </form>
 

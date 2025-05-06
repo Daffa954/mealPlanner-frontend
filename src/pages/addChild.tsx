@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from "react";
 import Logo from "../assets/logo-nobg.png";
 import { addChildren, getUserProfile } from "../apis/apiService";
+import { NavbarUser } from "../components/navbar_user";
 
 export const AddChild: React.FC = () => {
   const [name, setName] = useState("");
@@ -89,7 +90,7 @@ export const AddChild: React.FC = () => {
   return (
     <div className="w-full min-h-screen bg-gray-100">
       {/* Header - Same as before */}
-      <header className="bg-[#7B5E3C] h-20 text-white px-4 sm:px-6 shadow-md sticky top-0 z-50">
+      {/* <header className="bg-[#7B5E3C] h-20 text-white px-4 sm:px-6 shadow-md sticky top-0 z-50">
         <div className="flex h-full items-center justify-between max-w-screen-xl mx-auto">
           <div className="flex items-center">
             <div className="bg-[#FFF6E6] rounded-md">
@@ -101,7 +102,11 @@ export const AddChild: React.FC = () => {
             <p className="text-xs sm:text-sm">Credit : 5</p>
           </div>
         </div>
-      </header>
+      </header> */}
+      <NavbarUser 
+              name={name} 
+              credit={credit.toString()} // Convert number ke string
+            />
 
       {/* Main Content */}
       <main className="max-w-screen-xl mx-auto px-4 sm:px-6 py-6">

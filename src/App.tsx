@@ -25,7 +25,7 @@ function App() {
         <Route path="/addChild" element={<AddChild />} />
         <Route path="/listChild" element={<ListChildView />} />
         <Route path="/askAi/:childId" element={<AskAI />} />
-        <Route path="listSchedulle" element = {<ListScheduleView />}/>
+        <Route path="/listSchedulle" element = {<ListScheduleView />}/>
         <Route path="*" element={<NotFound />} />
         
       </Routes>

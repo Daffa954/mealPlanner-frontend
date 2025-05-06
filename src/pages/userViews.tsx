@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 import { getUserProfile } from "../apis/apiService";
 import { Link } from "react-router-dom";
 import { NavbarUser } from "../components/navbar_user";
+import { FooterWebsite } from "../components/footer_web";
 
 export const UserViews = () => {
   const [name, setName] = useState("");
@@ -56,7 +57,7 @@ export const UserViews = () => {
       </section>
 
       {/* Cards Section */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 px-6 lg:px-24 pb-12">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 px-6 lg:px-24 pb-12 mb-20">
         {/* Card 1 */}
         <div className="bg-[#ECE3D6] rounded-xl p-6 shadow-md flex flex-col items-center">
           <img
@@ -116,6 +117,7 @@ export const UserViews = () => {
           </Link>
         </div>
       </div>
+      <FooterWebsite></FooterWebsite>
     </div>
   );
 };
