@@ -109,9 +109,11 @@ export const UserViews = () => {
             agar waktu di dapur lebih efisien dan anak tetap makan dengan
             senang.
           </p>
-          <button className="bg-[#7B5E3C] text-white px-4 py-2 rounded-md hover:bg-[#63492c]">
-            Jadwal Menu
-          </button>
+          <Link to="/listSchedulle" className="">
+            <button className="bg-[#7B5E3C] text-white px-4 py-2 rounded-md hover:bg-[#63492c]">
+              Lihat Jadwal
+            </button>
+          </Link>
         </div>
       </div>
     </div>

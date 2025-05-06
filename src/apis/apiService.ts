@@ -2,9 +2,10 @@
 import axios from "axios";
 import {
   AddChildrenRequest,
-  
+  Child,
   CreateScheduleRequest,
   RecipeResponse,
+  Schedule,
 } from "../models/Recip";
 
 export type FormData = {
@@ -149,4 +150,67 @@ export const addChildren = async (
     console.error("Error calling AI API:", error);
     throw error;
   }
+};
+
+export const getAllSchedules = async (token: string) => {
+  try {
+    return axios.get("http://localhost:3000/api/schedules", {
+      headers: {
+        "X-API-TOKEN": token,
+      },
+    });
+  } catch (error) {
+    console.error("Error calling AI API:", error);
+    throw error;
+  }
+};
+// utils/sorting.ts
+export interface DateGroupedSchedule {
+  date: string;
+  children: {
+    child: Child;
+    schedules: Schedule[];
+  }[];
+}
+
+export const groupSchedulesByDate = (schedules: Schedule[]): DateGroupedSchedule[] => {
+  // 1. Group by date
+  const groupedByDate = schedules.reduce((acc, schedule) => {
+    const dateKey = new Date(schedule.date).toISOString().split('T')[0]; // Normalisasi tanggal
+    if (!acc[dateKey]) {
+      acc[dateKey] = [];
+    }
+    acc[dateKey].push(schedule);
+    return acc;
+  }, {} as Record<string, Schedule[]>);
+
+  // 2. Sort dates
+  const sortedDates = Object.keys(groupedByDate).sort(
+    (a, b) => new Date(a).getTime() - new Date(b).getTime()
+  );
+
+  // 3. Group by child within each date
+  return sortedDates.map((date) => {
+    const schedulesForDate = groupedByDate[date];
+    
+    // Group by child
+    const groupedByChild = schedulesForDate.reduce((acc, schedule) => {
+      const childId = schedule.childId;
+      if (!acc[childId]) {
+        acc[childId] = {
+          child: schedule.child,
+          schedules: []
+        };
+      }
+      acc[childId].schedules.push(schedule);
+      return acc;
+    }, {} as Record<number, { child: Child; schedules: Schedule[] }>);
+
+    return {
+      date,
+      children: Object.values(groupedByChild).sort((a, b) => 
+        a.child.name.localeCompare(b.child.name)
+      )
+    };
+  });
 };

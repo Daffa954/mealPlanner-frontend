@@ -47,3 +47,55 @@ export interface AddChildrenRequest {
   allergen: string[];
   lokasi: string;
 }
+
+
+// types.ts
+export interface Nutrition {
+  id: number;
+  recipeId: number;
+  calories: number;
+  carb: number;
+  protein: number;
+  totalFat: number;
+  saturatedFat: number;
+}
+
+export interface Recipe {
+  id: number;
+  name: string;
+  description: string;
+  step: string[];
+  time: number;
+  portion: number;
+  weight: number;
+  ingredients: string[];
+  nutrition: Nutrition;
+}
+
+export interface RecipeMealPlan {
+  mealPlanId: number;
+  recipeId: number;
+  status: string;
+  type: string;
+  time: string;
+  recipe: Recipe;
+}
+
+export interface Child {
+  id: number;
+  name: string;
+  age: number;
+  userId: number;
+}
+
+export interface Schedule {
+  id: number;
+  date: string;
+  childId: number;
+  child: Child;
+  recipes: RecipeMealPlan[];
+}
+export interface GroupedSchedule {
+  child: Child;
+  schedules: Schedule[];
+}
