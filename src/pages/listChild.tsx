@@ -3,6 +3,7 @@ import { getAllChildrens, getUserProfile } from "../apis/apiService";
 import { NavbarUser } from "../components/navbar_user";
 import { ChildrenResponse } from "../models/Recip";
 import { ChildCard } from "../components/child_card";
+import { FooterWebsite } from "../components/footer_web";
 
 export const ListChildView = () => {
   const token = sessionStorage.getItem("token");
@@ -70,6 +71,7 @@ export const ListChildView = () => {
           )}
         </section>
       </div>
+      <FooterWebsite />
     </>
   );
 };

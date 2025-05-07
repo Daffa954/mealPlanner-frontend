@@ -10,9 +10,9 @@ import { Bars3Icon } from "@heroicons/react/24/outline";
 import { Link } from "react-router-dom";
 
 const navigation = [
-  { name: "Home", href: "/", current: true },
-  { name: "Our Product", href: "about", current: false },
-  { name: "Our Teams", href: "myprojects", current: false },
+  { name: "Tambah Anak", href: "/addChild", current: true },
+  { name: "Buat Resep", href: "/listChild", current: false },
+  { name: "Jadwal", href: "/listSchedulle", current: false },
 ];
 
 function classNames(...classes: string[]) {
@@ -54,7 +54,7 @@ export const NavbarUser = ({
           </div>
 
           {/* Desktop Buttons */}
-          <div className="hidden md:block bg-red-500">
+          <div className="hidden md:block  text-lg">
             <p>{name}</p>
             <p>{credit}</p>
           </div>

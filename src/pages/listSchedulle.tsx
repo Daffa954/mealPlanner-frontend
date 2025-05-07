@@ -63,9 +63,9 @@ export const ListScheduleView = () => {
 
       <section className="flex flex-col items-center justify-center pt-12 px-4 md:px-8">
         <h1 className="text-2xl md:text-3xl font-medium text-center mb-6 md:mb-8">
-          Jadwal,{" "}
+          Jadwal Makanan {" "}
           <span className="text-2xl md:text-3xl font-bold text-[#4BA095]">
-            Jadwal
+          Anak Anda
           </span>
         </h1>
       </section>
