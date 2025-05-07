@@ -33,7 +33,7 @@ const MealScheduleCard = ({ schedule }: MealScheduleCardProps) => {
   };
 
   return (
-    <div className="w-full bg-white border-2 border-solid-black rounded-xl shadow-sm hover:shadow-md transition-shadow duration-300 p-6 mb-6">
+    <div className="w-full bg-white border-2 border-gray-200 rounded-xl shadow-sm hover:shadow-md transition-shadow duration-300 p-6 mb-6">
       <div className="flex items-center justify-between mb-4">
         <div>
           <h2 className="text-lg font-semibold text-gray-800">
@@ -217,6 +217,17 @@ const MealScheduleCard = ({ schedule }: MealScheduleCardProps) => {
                       <p className="text-sm text-gray-500">Lemak Total</p>
                       <p className="font-medium">
                         {selectedRecipe.recipe.nutrition.totalFat}g
+                      </p>
+                    </div>
+                  </div>
+                  <div className="flex items-center">
+                    <div className="w-8 h-8 bg-[#4BA095]/10 rounded-full flex items-center justify-center mr-3">
+                      🥑
+                    </div>
+                    <div>
+                      <p className="text-sm text-gray-500">Lemak Jenuh</p>
+                      <p className="font-medium">
+                        {selectedRecipe.recipe.nutrition.saturatedFat}g
                       </p>
                     </div>
                   </div>

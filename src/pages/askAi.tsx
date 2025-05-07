@@ -303,9 +303,14 @@ export const AskAI: React.FC = () => {
         </form>
 
         {/* Loading Indicator */}
-        <div className="w-full p-4 sm:p-6 flex justify-center items-center">
-          {isLoading && <Loading />}
+        {isLoading && (
+      <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+        <div className="bg-white p-8 rounded-lg shadow-lg flex flex-col items-center">
+          <Loading />
+          <p className="mt-4 text-gray-700">Membuat resep...</p>
         </div>
+      </div>
+    )}
 
         {/* Response */}
         {showRecipeModal && (

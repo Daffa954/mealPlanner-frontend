@@ -86,7 +86,7 @@ export const ListScheduleView = () => {
           {groupedSchedules.map((dateGroup) => (
             <div
               key={dateGroup.date}
-              className="bg-white rounded-xl p-6 shadow-sm"
+              className="bg-white rounded-xl p-6 shadow-sm border-2 border-gray-200"
             >
               {/* Header Tanggal */}
               <div className="mb-6 border-b pb-4">
