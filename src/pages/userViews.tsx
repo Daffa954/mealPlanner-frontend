@@ -138,7 +138,7 @@ export const UserViews = () => {
                 <span className="bg-[#4BA095] text-white text-xs px-2 py-1 rounded-full">Mulai</span>
               </div>
               <div className="mb-4">
-                <span className="text-gray-500 line-through">Rp50.000</span>
+                <span className="text-gray-500 line-through">.</span>
                 <div className="flex items-end">
                   <span className="text-3xl font-bold">Rp0</span>
                   {/* <span className="text-gray-500 ml-1">/selamanya</span> */}
@@ -208,7 +208,7 @@ export const UserViews = () => {
               <button className="bg-[#4BA095] text-white px-4 py-2 rounded-md hover:bg-[#3a7d74] w-full">
                 Beli Sekarang
               </button>
-              <p className="text-xs text-center mt-2 text-gray-500">Cocok untuk 1 minggu</p>
+              <p className="text-xs text-center mt-2 text-gray-500">Cocok untuk 1 bulan</p>
             </div>
 
             {/* Pro Plan Card */}
@@ -220,7 +220,7 @@ export const UserViews = () => {
               <div className="mb-4">
                 <span className="text-gray-500 line-through">Rp300.000</span>
                 <div className="flex items-end">
-                  <span className="text-3xl font-bold">Rp150.000</span>
+                  <span className="text-3xl font-bold">Rp125.000</span>
                   {/* <span className="text-gray-500 ml-1">/bulan</span> */}
                 </div>
               </div>
@@ -257,7 +257,7 @@ export const UserViews = () => {
               <button className="bg-[#4BA095] text-white px-4 py-2 rounded-md hover:bg-[#3a7d74] w-full">
                 Beli Sekarang
               </button>
-              <p className="text-xs text-center mt-2 text-gray-500">Cocok untuk 1 bulan</p>
+              <p className="text-xs text-center mt-2 text-gray-500">Cocok untuk 6 bulan</p>
             </div>
 
             {/* Enterprise Plan Card (half cropped) */}
@@ -269,7 +269,7 @@ export const UserViews = () => {
               <div className="mb-4">
                 <span className="text-gray-500 line-through">Rp1.000.000</span>
                 <div className="flex items-end">
-                  <span className="text-3xl font-bold">Rp500.000</span>
+                  <span className="text-3xl font-bold">Rp459.000</span>
                   {/* <span className="text-gray-500 ml-1">/bulan</span> */}
                 </div>
               </div>
@@ -310,7 +310,7 @@ export const UserViews = () => {
                 </li>
               </ul>
               <button className="bg-[#4BA095] text-white px-4 py-2 rounded-md hover:bg-[#3a7d74] w-full">
-                Hubungi Kami
+                Beli Sekarang
               </button>
               <p className="text-xs text-center mt-2 text-gray-500">Cocok untuk keluarga besar</p>
             </div>
