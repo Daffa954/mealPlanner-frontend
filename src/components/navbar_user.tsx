@@ -10,7 +10,7 @@ import { Bars3Icon } from "@heroicons/react/24/outline";
 import { Link } from "react-router-dom";
 
 const navigation = [
-  { name: "Tambah Anak", href: "/addChild", current: true },
+  { name: "Tambah Anak", href: "/addChild", current: false },
   { name: "Buat Resep", href: "/listChild", current: false },
   { name: "Jadwal", href: "/listSchedulle", current: false },
 ];
@@ -54,9 +54,9 @@ export const NavbarUser = ({
           </div>
 
           {/* Desktop Buttons */}
-          <div className="hidden md:block  text-lg">
+          <div className="hidden md:block  text-md">
             <p>{name}</p>
-            <p>{credit}</p>
+            <p>Credit : {credit}</p>
           </div>
 
           {/* Mobile Button */}
