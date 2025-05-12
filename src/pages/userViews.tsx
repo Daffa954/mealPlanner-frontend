@@ -155,15 +155,15 @@ export const UserViews = () => {
                   </svg>
                   <span className="text-sm">10 resep gratis</span>
                 </li>
-                <li className="flex items-center">
+                {/* <li className="flex items-center">
                   <svg className="w-5 h-5 text-[#4BA095] mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
                   </svg>
                   <span className="text-sm">1 anak</span>
-                </li>
+                </li> */}
               </ul>
-              <button className="bg-[#7B5E3C] text-white px-4 py-2 rounded-md hover:bg-[#63492c] w-full">
-                Paket Saat Ini
+              <button className="bg-[#7B5E3C] text-white px-4 py-2 rounded-md hover:bg-[#63492c] w-full cursor-not-allowed" disabled>
+                Pengguna Baru
               </button>
               <p className="text-xs text-center mt-2 text-gray-500">Cocok untuk mencoba</p>
             </div>
@@ -190,9 +190,9 @@ export const UserViews = () => {
                   <svg className="w-5 h-5 text-[#4BA095] mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
                   </svg>
-                  <span className="text-sm">50 resep per bulan</span>
+                  <span className="text-sm">Generate 50 resep</span>
                 </li>
-                <li className="flex items-center">
+                {/* <li className="flex items-center">
                   <svg className="w-5 h-5 text-[#4BA095] mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
                   </svg>
@@ -203,11 +203,16 @@ export const UserViews = () => {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
                   </svg>
                   <span className="text-sm">Prioritas dukungan</span>
-                </li>
+                </li> */}
               </ul>
-              <button className="bg-[#4BA095] text-white px-4 py-2 rounded-md hover:bg-[#3a7d74] w-full">
+              <Link to={`/payment?plan=Dasar&price=25000&credits=500`} className="w-full">
+                <button className="bg-[#4BA095] text-white px-4 py-2 rounded-md hover:bg-[#3a7d74] w-full">
+                  Beli Sekarang
+                </button>
+              </Link>
+              {/* <button className="bg-[#4BA095] text-white px-4 py-2 rounded-md hover:bg-[#3a7d74] w-full">
                 Beli Sekarang
-              </button>
+              </button> */}
               <p className="text-xs text-center mt-2 text-gray-500">Cocok untuk 1 bulan</p>
             </div>
 
@@ -233,9 +238,9 @@ export const UserViews = () => {
                   <svg className="w-5 h-5 text-[#4BA095] mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
                   </svg>
-                  <span className="text-sm">300 resep per bulan</span>
+                  <span className="text-sm">Generate 300 resep</span>
                 </li>
-                <li className="flex items-center">
+                {/* <li className="flex items-center">
                   <svg className="w-5 h-5 text-[#4BA095] mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
                   </svg>
@@ -252,11 +257,16 @@ export const UserViews = () => {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
                   </svg>
                   <span className="text-sm">Analisis nutrisi</span>
-                </li>
+                </li> */}
               </ul>
-              <button className="bg-[#4BA095] text-white px-4 py-2 rounded-md hover:bg-[#3a7d74] w-full">
+              <Link to={`/payment?plan=Pro&price=125000&credits=3000`} className="w-full">
+                <button className="bg-[#4BA095] text-white px-4 py-2 rounded-md hover:bg-[#3a7d74] w-full">
+                  Beli Sekarang
+                </button>
+              </Link>
+              {/* <button className="bg-[#4BA095] text-white px-4 py-2 rounded-md hover:bg-[#3a7d74] w-full">
                 Beli Sekarang
-              </button>
+              </button> */}
               <p className="text-xs text-center mt-2 text-gray-500">Cocok untuk 6 bulan</p>
             </div>
 
@@ -269,7 +279,7 @@ export const UserViews = () => {
               <div className="mb-4">
                 <span className="text-gray-500 line-through">Rp1.000.000</span>
                 <div className="flex items-end">
-                  <span className="text-3xl font-bold">Rp459.000</span>
+                  <span className="text-3xl font-bold">Rp439.900</span>
                   {/* <span className="text-gray-500 ml-1">/bulan</span> */}
                 </div>
               </div>
@@ -282,9 +292,9 @@ export const UserViews = () => {
                   <svg className="w-5 h-5 text-[#4BA095] mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
                   </svg>
-                  <span className="text-sm">1000 resep per bulan</span>
+                  <span className="text-sm">Generate 1000 resep</span>
                 </li>
-                <li className="flex items-center">
+                {/* <li className="flex items-center">
                   <svg className="w-5 h-5 text-[#4BA095] mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
                   </svg>
@@ -307,11 +317,16 @@ export const UserViews = () => {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
                   </svg>
                   <span className="text-sm">Konsultasi ahli gizi</span>
-                </li>
+                </li> */}
               </ul>
-              <button className="bg-[#4BA095] text-white px-4 py-2 rounded-md hover:bg-[#3a7d74] w-full">
+              <Link to={`/payment?plan=Enterprise&price=439900&credits=10000`} className="w-full">
+                <button className="bg-[#4BA095] text-white px-4 py-2 rounded-md hover:bg-[#3a7d74] w-full">
+                  Beli Sekarang
+                </button>
+              </Link>
+              {/* <button className="bg-[#4BA095] text-white px-4 py-2 rounded-md hover:bg-[#3a7d74] w-full">
                 Beli Sekarang
-              </button>
+              </button> */}
               <p className="text-xs text-center mt-2 text-gray-500">Cocok untuk keluarga besar</p>
             </div>
           </div>

@@ -12,6 +12,7 @@ import { AddChild } from './pages/addChild';
 import { NotFound } from './pages/notFound';
 import { ListChildView } from './pages/listChild';
 import { ListScheduleView } from './pages/listSchedulle';
+import { PaymentPage } from './pages/payment';
 function App() {
 
   return (
@@ -26,6 +27,7 @@ function App() {
         <Route path="/listChild" element={<ListChildView />} />
         <Route path="/askAi/:childId" element={<AskAI />} />
         <Route path="/listSchedulle" element = {<ListScheduleView />}/>
+        <Route path="/payment" element={<PaymentPage />} />
         <Route path="*" element={<NotFound />} />
         
       </Routes>

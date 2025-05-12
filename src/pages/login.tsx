@@ -108,7 +108,7 @@ export const Login = () => {
             Login
           </button>
           
-          <Link to="/register" className="text-sm text-center text-gray-500">
+          <Link to="/register" className="text-sm text-center text-gray-500 hover:text-blue-500">
             Don't have an account?{" "}
           </Link>
           
