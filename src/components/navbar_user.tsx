@@ -32,7 +32,9 @@ export const NavbarUser = ({
         <div className="flex h-16 items-center justify-between">
           {/* Logo */}
           <div className="flex items-center">
-            <img className="h-24 w-auto" src={Logo} alt="Logo" />
+            <a href="userViews">
+              <img className="h-24 w-auto" src={Logo} alt="Logo" />
+            </a>
           </div>
 
           {/* Desktop Navigation */}
