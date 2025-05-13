@@ -10,14 +10,14 @@ export const Register = () => {
   const token = sessionStorage.getItem("token");
   const emailUser = sessionStorage.getItem("email");
 
-  useEffect(() => {
-    document.title = "Home";
-    //check the token and email
-    if (!token || !emailUser) {
-      window.location.href = "/login";
-    }
-    getProfile();
-  }, [token, emailUser]);
+  // useEffect(() => {
+  //   document.title = "Home";
+  //   //check the token and email
+  //   if (!token || !emailUser) {
+  //     window.location.href = "/login";
+  //   }
+  //   getProfile();
+  // }, [token, emailUser]);
 
   const getProfile = async () => {
     try {
