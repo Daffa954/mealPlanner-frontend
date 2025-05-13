@@ -20,7 +20,30 @@ export type FormData = {
   bahanTersedia: string[];
   tipe: string;
 };
-
+export const generateBeforeAPI = async (token: string) => {
+  try {
+    return axios.get("http://localhost:3000/api/generateBeforeChecking", {
+      headers: {
+        "X-API-TOKEN": token,
+      },
+    });
+  } catch (error) {
+    console.error("Error calling AI API:", error);
+    throw error;
+  }
+};
+export const generateAfterAPI = async (token: string) => {
+  try {
+    return axios.get("http://localhost:3000/api/generateAfterChecking", {
+      headers: {
+        "X-API-TOKEN": token,
+      },
+    });
+  } catch (error) {
+    console.error("Error calling AI API:", error);
+    throw error;
+  }
+};
 export const askAIAPI = async (formData: FormData, token: string) => {
   try {
     return axios.post("http://localhost:3000/api/deepseek", formData, {

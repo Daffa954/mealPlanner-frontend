@@ -3,6 +3,8 @@ import React, { useEffect, useState } from "react";
 import {
   askAIAPI,
   FormData,
+  generateAfterAPI,
+  generateBeforeAPI,
   getChildren,
   getUserProfile,
 } from "../apis/apiService";
@@ -142,9 +144,12 @@ export const AskAI: React.FC = () => {
     e.preventDefault();
     setIsLoading(true);
     try {
+      const before = await generateBeforeAPI(token ? token : "");
       const response = await askAIAPI(formData, token ? token : "");
       if (response.status == 200) {
         setRecipeResponse(response.data.recipeData);
+        const after = await generateAfterAPI(token ? token : "");
+        getProfile()
         setShowRecipeModal(true); // Tampilkan modal
       }
     } catch (error) {
@@ -282,18 +287,18 @@ export const AskAI: React.FC = () => {
               </select>
             </label>
             <div>
-          <label className=" text-gray-700">
-            Jam:
-            <input
-              type="time"
-              value={time}
-              onChange={(e) => setTime(e.target.value)}
-              className="w-full border border-[#D6C5AF] p-2 rounded mt-1 bg-white text-sm sm:text-base"
-            />
-          </label>
+              <label className=" text-gray-700">
+                Jam:
+                <input
+                  type="time"
+                  value={time}
+                  onChange={(e) => setTime(e.target.value)}
+                  className="w-full border border-[#D6C5AF] p-2 rounded mt-1 bg-white text-sm sm:text-base"
+                />
+              </label>
             </div>
           </div>
-         
+
           <button
             type="submit"
             className="w-full bg-[#7B5E3C] text-white px-4 py-2 mt-6 rounded-md hover:bg-[#63492c] text-sm sm:text-base"
@@ -304,21 +309,21 @@ export const AskAI: React.FC = () => {
 
         {/* Loading Indicator */}
         {isLoading && (
-      <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-        <div className="bg-white p-8 rounded-lg shadow-lg flex flex-col items-center">
-          <Loading />
-          <p className="mt-4 text-gray-700">Membuat resep...</p>
-        </div>
-      </div>
-    )}
+          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+            <div className="bg-white p-8 rounded-lg shadow-lg flex flex-col items-center">
+              <Loading />
+              <p className="mt-4 text-gray-700">Membuat resep...</p>
+            </div>
+          </div>
+        )}
 
         {/* Response */}
         {showRecipeModal && (
           <RecipeCard
             recipe={recipeResponse}
             onClose={() => setShowRecipeModal(false)}
-            time= {time}
-            type = {formData.tipe}
+            time={time}
+            type={formData.tipe}
           />
         )}
       </main>
