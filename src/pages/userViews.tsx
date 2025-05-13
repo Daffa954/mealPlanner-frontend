@@ -130,7 +130,7 @@ export const UserViews = () => {
 
         {/* Pricing Cards Container */}
         <div className="relative">
-          <div className="flex space-x-6 overflow-x-auto pb-6 scrollbar-hide">
+          <div className="flex space-x-6 overflow-x-auto pb-6 scrollbar-hide  justify-center">
             {/* Free Plan Card */}
             <div className="flex-shrink-0 w-80 bg-[#ECE3D6] rounded-xl p-6 shadow-md flex flex-col">
               <div className="flex justify-between items-start mb-4">

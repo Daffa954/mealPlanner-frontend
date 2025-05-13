@@ -6,6 +6,8 @@ import {
   CreateScheduleRequest,
   RecipeResponse,
   Schedule,
+  PaymentRequest,
+  Plan,
 } from "../models/Recip";
 
 export type FormData = {
@@ -164,6 +166,43 @@ export const getAllSchedules = async (token: string) => {
     throw error;
   }
 };
+// export const paymentCredit = async (token: string, paymentRequest: PaymentRequest) => {
+//   try {
+//     return axios.post(
+//       "http://localhost:3000/api/payment",
+//       {
+//         paymentRequest,
+//       },
+//       {
+//         headers: {
+//           "X-API-TOKEN": token,
+//         },
+//       }
+//     );
+//   } catch (error) {
+//     console.error("Error calling AI API:", error);
+//     throw error;
+//   }
+// }
+// apiService.ts
+export const paymentCredit = async (
+  token: string,
+  data: {
+    plan: Plan;
+    cardData: {
+      cardNumber: string;
+      expirationDate: string;
+      cvv: string;
+    };
+  }
+) => {
+  const response = await axios.post("http://localhost:3000/api/payment", data, {
+    headers: {
+      "X-API-TOKEN": token,
+    },
+  });
+  return response;
+};
 // utils/sorting.ts
 export interface DateGroupedSchedule {
   date: string;
@@ -173,10 +212,12 @@ export interface DateGroupedSchedule {
   }[];
 }
 
-export const groupSchedulesByDate = (schedules: Schedule[]): DateGroupedSchedule[] => {
+export const groupSchedulesByDate = (
+  schedules: Schedule[]
+): DateGroupedSchedule[] => {
   // 1. Group by date
   const groupedByDate = schedules.reduce((acc, schedule) => {
-    const dateKey = new Date(schedule.date).toISOString().split('T')[0]; // Normalisasi tanggal
+    const dateKey = new Date(schedule.date).toISOString().split("T")[0]; // Normalisasi tanggal
     if (!acc[dateKey]) {
       acc[dateKey] = [];
     }
@@ -192,14 +233,14 @@ export const groupSchedulesByDate = (schedules: Schedule[]): DateGroupedSchedule
   // 3. Group by child within each date
   return sortedDates.map((date) => {
     const schedulesForDate = groupedByDate[date];
-    
+
     // Group by child
     const groupedByChild = schedulesForDate.reduce((acc, schedule) => {
       const childId = schedule.childId;
       if (!acc[childId]) {
         acc[childId] = {
           child: schedule.child,
-          schedules: []
+          schedules: [],
         };
       }
       acc[childId].schedules.push(schedule);
@@ -208,9 +249,9 @@ export const groupSchedulesByDate = (schedules: Schedule[]): DateGroupedSchedule
 
     return {
       date,
-      children: Object.values(groupedByChild).sort((a, b) => 
+      children: Object.values(groupedByChild).sort((a, b) =>
         a.child.name.localeCompare(b.child.name)
-      )
+      ),
     };
   });
 };

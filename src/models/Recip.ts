@@ -99,3 +99,20 @@ export interface GroupedSchedule {
   child: Child;
   schedules: Schedule[];
 }
+
+export interface Plan {
+  name: string;
+  price: number;
+  credits: number;
+}
+
+export interface CardData {
+  cardNumber: string;
+  expirationDate: string;
+  cvv: string;
+}
+
+export interface PaymentRequest {
+  plan: Plan;
+  cardData: CardData;
+}
