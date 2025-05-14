@@ -115,6 +115,7 @@ export const PaymentPage = () => {
       if (response.status == 200) {
         alert(`Pembayaran untuk paket ${selectedPlan.name} berhasil!`);
         getProfile();
+        navigate("/userViews");
       } else {
         alert( "Pembayaran gagal");
       }
